@@ -3,13 +3,15 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour {
 
   [SerializeField] float jumpVelocity;
-  [SerializeField] float fallMultiplier;
+  [SerializeField] float fallGravityScale;
 
   Rigidbody2D _rigidbody;
+  float _initialGravityScale;
   bool canJump;
   void Awake() {
     _rigidbody = GetComponent<Rigidbody2D>();
     canJump = true;
+    _initialGravityScale = _rigidbody.gravityScale;
   }
 
   void Update() {
@@ -25,13 +27,14 @@ public class PlayerJump : MonoBehaviour {
     //better jump
     if (_rigidbody.velocity.y < 0) {
       //if player falls
-      _rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+      _rigidbody.gravityScale = fallGravityScale;
     }
   }
 
   void OnCollisionEnter2D(Collision2D other) {
     //reset canJump
     if (other.gameObject.CompareTag("Environment") && other.gameObject.transform.position.y < transform.position.y) {
+      _rigidbody.gravityScale = _initialGravityScale;
       canJump = true;
     }
   }
