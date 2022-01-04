@@ -11,6 +11,6 @@ public class PlayerHorizontalMovement : MonoBehaviour {
   private void Update() {
     //walk left right
     var movementX = Input.GetAxis("Horizontal");
-    transform.Translate(movementX * movementSpeed * Time.deltaTime, 0, 0, Space.World);
+    _rigidbody.velocity = new Vector2(movementX * movementSpeed, _rigidbody.velocity.y);
   }
 }
