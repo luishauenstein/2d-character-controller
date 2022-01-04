@@ -8,22 +8,17 @@ public class PlayerJump : MonoBehaviour {
   public float initialGravityScale;
   public bool canJump;
   Rigidbody2D _rigidbody;
-  float movementY;
   void Awake() {
     _rigidbody = GetComponent<Rigidbody2D>();
     canJump = true;
     initialGravityScale = _rigidbody.gravityScale;
   }
 
-  void Update() {
-    //handle jump input
-    movementY = Input.GetAxisRaw("Vertical");
-  }
-
   void FixedUpdate() {
     //handle jump
+    float movementY = Input.GetAxisRaw("Vertical");
     if (canJump && movementY > 0) {
-      _rigidbody.velocity = Vector2.up * jumpVelocity;
+      _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpVelocity);
       canJump = false;
     }
 
