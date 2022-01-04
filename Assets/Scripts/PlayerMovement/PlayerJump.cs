@@ -4,9 +4,8 @@ public class PlayerJump : MonoBehaviour {
 
   [SerializeField] float jumpVelocity;
   [SerializeField] float fallGravityScale;
-
-  public float initialGravityScale;
-  [SerializeField] Transform groundCheck;
+  [SerializeField] bool quickFall;
+  float initialGravityScale;
   Rigidbody2D _rigidbody;
   BoxCollider2D _boxCollider;
   void Awake() {
@@ -24,11 +23,13 @@ public class PlayerJump : MonoBehaviour {
     }
 
     //better jump
-    if (_rigidbody.velocity.y < 0) {
-      //if player falls
-      _rigidbody.gravityScale = fallGravityScale;
-    } else {
-      _rigidbody.gravityScale = initialGravityScale;
+    if (quickFall) {
+      if (_rigidbody.velocity.y < 0) {
+        //if player falls
+        _rigidbody.gravityScale = fallGravityScale;
+      } else {
+        _rigidbody.gravityScale = initialGravityScale;
+      }
     }
   }
 
