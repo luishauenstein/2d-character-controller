@@ -32,10 +32,10 @@ public class PlayerJump : MonoBehaviour {
     }
   }
 
-  [SerializeField] LayerMask groundLayerMask;
   bool checkGrounded() {
     //check if player is grounded
     float boxHeight = 0.05f;
+    LayerMask groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
     RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, Vector2.down, boxHeight, groundLayerMask);
     return raycastHit.collider != null;
   }
