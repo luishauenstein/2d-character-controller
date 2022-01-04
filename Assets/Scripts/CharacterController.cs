@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class PlayerJump : MonoBehaviour {
+public class CharacterController : MonoBehaviour {
 
+  [SerializeField] float movementSpeed;
   [SerializeField] float jumpVelocity;
   [SerializeField] float fallGravityScale;
   [SerializeField] bool quickFall;
@@ -15,6 +16,9 @@ public class PlayerJump : MonoBehaviour {
   }
 
   void FixedUpdate() {
+    //walk left right
+    float movementX = Input.GetAxis("Horizontal");
+    _rigidbody.velocity = new Vector2(movementX * movementSpeed, _rigidbody.velocity.y);
 
     //handle jump
     float movementY = Input.GetAxisRaw("Vertical");

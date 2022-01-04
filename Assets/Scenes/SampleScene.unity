@@ -906,7 +906,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1831816606}
   - component: {fileID: 1831816605}
-  - component: {fileID: 1831816607}
   - component: {fileID: 1831816610}
   - component: {fileID: 1831816608}
   - component: {fileID: 1831816609}
@@ -982,19 +981,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1831816607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831816604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab97b7dbce14340fda3830e522af2d6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 10
 --- !u!50 &1831816608
 Rigidbody2D:
   serializedVersion: 4
@@ -1054,6 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fd8d3f26be4464fbfd5622f076f1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 13
   jumpVelocity: 25
   fallGravityScale: 8.5
   quickFall: 0
