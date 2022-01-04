@@ -6,20 +6,21 @@ public class PlayerJump : MonoBehaviour {
   [SerializeField] float fallGravityScale;
 
   public float initialGravityScale;
-  public bool canJump;
+  [SerializeField] Transform groundCheck;
   Rigidbody2D _rigidbody;
+  BoxCollider2D _boxCollider;
   void Awake() {
     _rigidbody = GetComponent<Rigidbody2D>();
-    canJump = true;
+    _boxCollider = GetComponent<BoxCollider2D>();
     initialGravityScale = _rigidbody.gravityScale;
   }
 
   void FixedUpdate() {
+
     //handle jump
     float movementY = Input.GetAxisRaw("Vertical");
-    if (canJump && movementY > 0) {
+    if (movementY > 0 && checkGrounded()) {
       _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpVelocity);
-      canJump = false;
     }
 
     //better jump
@@ -29,5 +30,13 @@ public class PlayerJump : MonoBehaviour {
     } else {
       _rigidbody.gravityScale = initialGravityScale;
     }
+  }
+
+  [SerializeField] LayerMask groundLayerMask;
+  bool checkGrounded() {
+    //check if player is grounded
+    float boxHeight = 0.05f;
+    RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f, Vector2.down, boxHeight, groundLayerMask);
+    return raycastHit.collider != null;
   }
 }
