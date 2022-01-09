@@ -4,8 +4,6 @@ public class CharacterController : MonoBehaviour {
 
   [SerializeField] float movementSpeed;
   [SerializeField] float jumpVelocity;
-  [SerializeField] float fallGravityScale;
-  [SerializeField] bool quickFall;
   float initialGravityScale;
   Rigidbody2D _rigidbody;
   BoxCollider2D _boxCollider;
@@ -24,16 +22,6 @@ public class CharacterController : MonoBehaviour {
     float movementY = Input.GetAxisRaw("Vertical");
     if (movementY > 0 && checkGrounded()) {
       _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpVelocity);
-    }
-
-    //better jump
-    if (quickFall) {
-      if (_rigidbody.velocity.y < 0) {
-        //if player falls
-        _rigidbody.gravityScale = fallGravityScale;
-      } else {
-        _rigidbody.gravityScale = initialGravityScale;
-      }
     }
   }
 
