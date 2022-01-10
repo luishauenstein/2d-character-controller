@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour {
   PlayerBaseState currentState;
-  public PlayerIdleState IdleState = new PlayerIdleState();
-  public PlayerWalkingState WalkingState = new PlayerWalkingState();
-  public PlayerAirborneState AirborneState = new PlayerAirborneState();
+  public PlayerWalkingState WalkingState = new PlayerWalkingState(); //idle & walking
+  public PlayerAirborneState AirborneState = new PlayerAirborneState(); //in air (jumping or falling)
+  public PlayerDashState IdleState = new PlayerDashState(); //dash forward
 
   void Start() {
     //initial state

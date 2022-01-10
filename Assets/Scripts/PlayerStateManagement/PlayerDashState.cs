@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerIdleState : PlayerBaseState {
+public class PlayerDashState : PlayerBaseState {
   public override void EnterState(PlayerStateManager player) {
 
   }
