@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour {
+  //set relevant variables
+  [SerializeField] float movementSpeed;
+  [SerializeField] float jumpVelocity;
+
+  // instantiate state objects
   PlayerBaseState currentState;
   public PlayerWalkingState WalkingState = new PlayerWalkingState(); //idle & walking
   public PlayerAirborneState AirborneState = new PlayerAirborneState(); //in air (jumping or falling)
   public PlayerDashState IdleState = new PlayerDashState(); //dash forward
 
+  //call state methods
   void Start() {
     //initial state
     currentState = IdleState;
