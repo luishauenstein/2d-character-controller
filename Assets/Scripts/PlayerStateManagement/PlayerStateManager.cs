@@ -52,12 +52,33 @@ public class PlayerStateManager : MonoBehaviour {
     state.EnterState(this);
   }
 
-  //input methods
+  //player input & movement methods
   public void updateInputX() {
     inputX = Input.GetAxis("Horizontal");
   }
 
   public void updateInputY() {
     inputY = Input.GetAxisRaw("Vertical");
+  }
+
+  public void handleWalk() {
+    //normal "walking" sets player horizontal velocity according to input when called
+    rb.velocity = new Vector2(inputX * movementSpeed, rb.velocity.y);
+  }
+
+  public void handleJump() {
+    //checks if "jump" has been pressed and if so, jumps
+    if (inputY > 0) {
+      rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+    }
+  }
+
+  public bool isGrounded() {
+    //check if player is grounded
+    float boxHeight = 0.05f;
+    LayerMask groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
+    RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, boxHeight, groundLayerMask);
+    bool grounded = raycastHit.collider != null;
+    return grounded;
   }
 }

@@ -13,14 +13,15 @@ public class PlayerWalkingState : PlayerBaseState {
   }
 
   public override void FixedUpdateState(PlayerStateManager player) {
-    //set player horizontal velocity according to input
-    player.rb.velocity = new Vector2(player.inputX * player.movementSpeed, player.rb.velocity.y);
+    player.handleWalk();
+    player.handleJump();
+
   }
 
   public override void OnCollisionEnter2D(PlayerStateManager player, Collision2D collision) {
 
   }
   public override void OnCollisionExit2D(PlayerStateManager player, Collision2D collision) {
-
+    if (!player.isGrounded()) player.SwitchState(player.AirborneState);
   }
 }
