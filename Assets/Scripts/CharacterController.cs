@@ -4,14 +4,12 @@ public class CharacterController : MonoBehaviour {
 
   [SerializeField] float movementSpeed;
   [SerializeField] float jumpVelocity;
-  float initialGravityScale;
   Rigidbody2D _rigidbody;
   BoxCollider2D _boxCollider;
   bool grounded;
   void Awake() {
     _rigidbody = GetComponent<Rigidbody2D>();
     _boxCollider = GetComponent<BoxCollider2D>();
-    initialGravityScale = _rigidbody.gravityScale;
   }
 
   void FixedUpdate() {
