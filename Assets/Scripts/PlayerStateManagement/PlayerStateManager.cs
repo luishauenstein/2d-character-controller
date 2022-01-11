@@ -7,6 +7,10 @@ public class PlayerStateManager : MonoBehaviour {
   [SerializeField] float movementSpeed;
   [SerializeField] float jumpVelocity;
 
+  //get components so scripts can access
+  public Rigidbody2D rb;
+  public BoxCollider2D boxCollider;
+
   // instantiate state objects
   PlayerBaseState currentState;
   public PlayerWalkingState WalkingState = new PlayerWalkingState(); //idle & walking
@@ -15,6 +19,10 @@ public class PlayerStateManager : MonoBehaviour {
 
   //call state methods
   void Start() {
+    //get components
+    rb = GetComponent<Rigidbody2D>();
+    boxCollider = GetComponent<BoxCollider2D>();
+
     //initial state
     currentState = IdleState;
     currentState.EnterState(this);
