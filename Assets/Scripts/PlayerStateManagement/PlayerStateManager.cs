@@ -15,12 +15,21 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   void Update() {
-    currentState.UpdateState(this);
+    currentState.UpdateState(this); //call update method on every state
   }
 
-  void OnCollisionEnter(Collision collision) {
-    currentState.OnCollisionEnter(this, collision);
+  void FixedUpdate() {
+    currentState.FixedUpdateState(this);
   }
+
+  void OnCollisionEnter2D(Collision2D collision) {
+    currentState.OnCollisionEnter2D(this, collision);
+  }
+
+  void OnCollisionExit2D(Collision2D collision) {
+    currentState.OnCollisionExit2D(this, collision);
+  }
+
   public void SwitchState(PlayerBaseState state) {
     currentState = state;
     state.EnterState(this);
