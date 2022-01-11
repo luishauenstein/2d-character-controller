@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour {
   //set relevant variables
-  [SerializeField] float movementSpeed;
-  [SerializeField] float jumpVelocity;
+  [SerializeField] public float movementSpeed;
+  [SerializeField] public float jumpVelocity;
 
   //get components so scripts can access
-  public Rigidbody2D rb;
-  public BoxCollider2D boxCollider;
+  [System.NonSerialized] public Rigidbody2D rb;
+  [System.NonSerialized] public BoxCollider2D boxCollider;
 
   // instantiate state objects
   PlayerBaseState currentState;
   public PlayerWalkingState WalkingState = new PlayerWalkingState(); //idle & walking
   public PlayerAirborneState AirborneState = new PlayerAirborneState(); //in air (jumping or falling)
-  public PlayerDashState IdleState = new PlayerDashState(); //dash forward
+  public PlayerDashState DashState = new PlayerDashState(); //dash forward
 
   //call state methods
   void Start() {
@@ -24,7 +24,7 @@ public class PlayerStateManager : MonoBehaviour {
     boxCollider = GetComponent<BoxCollider2D>();
 
     //initial state
-    currentState = IdleState;
+    currentState = WalkingState;
     currentState.EnterState(this);
   }
 
