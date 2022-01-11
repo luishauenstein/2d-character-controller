@@ -10,6 +10,8 @@ public class PlayerStateManager : MonoBehaviour {
   //get components so scripts can access
   [System.NonSerialized] public Rigidbody2D rb;
   [System.NonSerialized] public BoxCollider2D boxCollider;
+  [System.NonSerialized] public float inputX; //input left and right (e.g. for walking)
+  [System.NonSerialized] public float inputY; //input up and down (e.g. for jumping)
 
   // instantiate state objects
   PlayerBaseState currentState;
@@ -44,8 +46,18 @@ public class PlayerStateManager : MonoBehaviour {
     currentState.OnCollisionExit2D(this, collision);
   }
 
+  // switch to another state
   public void SwitchState(PlayerBaseState state) {
     currentState = state;
     state.EnterState(this);
+  }
+
+  //input methods
+  public void updateInputX() {
+    inputX = Input.GetAxis("Horizontal");
+  }
+
+  public void updateInputY() {
+    inputY = Input.GetAxisRaw("Vertical");
   }
 }
