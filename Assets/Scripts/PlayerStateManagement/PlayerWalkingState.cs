@@ -3,7 +3,9 @@ using UnityEngine;
 public class PlayerWalkingState : PlayerBaseState {
 
   public override void EnterState(PlayerStateManager player) {
-
+    // reset availability: set how many are available
+    player.jumpsAvailable = 2;
+    player.dashesAvailable = 1;
   }
 
   public override void UpdateState(PlayerStateManager player) {

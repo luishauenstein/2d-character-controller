@@ -7,11 +7,13 @@ public class PlayerStateManager : MonoBehaviour {
   [SerializeField] public float movementSpeed;
   [SerializeField] public float jumpVelocity;
 
-  //get components so scripts can access
+  //vars scripts need to access
   [System.NonSerialized] public Rigidbody2D rb;
   [System.NonSerialized] public BoxCollider2D boxCollider;
   [System.NonSerialized] public float inputX; //input left and right (e.g. for walking)
   [System.NonSerialized] public float inputY; //input up and down (e.g. for jumping)
+  [System.NonSerialized] public int jumpsAvailable; //number of jumps available
+  [System.NonSerialized] public int dashesAvailable; //number of dashes available
 
   // instantiate state objects
   PlayerBaseState currentState;
@@ -68,8 +70,10 @@ public class PlayerStateManager : MonoBehaviour {
 
   public void handleJump() {
     //checks if "jump" has been pressed and if so, jumps
-    if (inputY > 0) {
-      rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+    if (inputY > 0 && jumpsAvailable > 0) {
+      rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); //upwards movement
+      jumpsAvailable--;
+      Debug.Log(jumpsAvailable);
     }
   }
 
