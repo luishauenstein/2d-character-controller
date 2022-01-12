@@ -73,7 +73,7 @@ public class PlayerStateManager : MonoBehaviour {
     if (inputY > 0 && jumpsAvailable > 0) {
       rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); //upwards movement
       jumpsAvailable--;
-      Debug.Log(jumpsAvailable);
+      SwitchState(AirborneState);
     }
   }
 
