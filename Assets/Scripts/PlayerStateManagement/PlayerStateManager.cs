@@ -6,7 +6,8 @@ public class PlayerStateManager : MonoBehaviour {
   //set relevant variables
   [SerializeField] public float movementSpeed;
   [SerializeField] public float jumpVelocity;
-
+  [SerializeField] public float dashSpeed;
+  [SerializeField] public float dashDuration; //in milliseconds
   //vars scripts need to access
   [System.NonSerialized] public Rigidbody2D rb;
   [System.NonSerialized] public BoxCollider2D boxCollider;
@@ -14,6 +15,7 @@ public class PlayerStateManager : MonoBehaviour {
   [System.NonSerialized] public float inputY; //input up and down (e.g. for jumping)
   [System.NonSerialized] public int jumpsAvailable; //number of jumps available
   [System.NonSerialized] public int dashesAvailable; //number of dashes available
+  [System.NonSerialized] public bool directionLeft = false; //shows if direction is left or right
 
   // instantiate state objects
   PlayerBaseState currentState;
@@ -57,6 +59,9 @@ public class PlayerStateManager : MonoBehaviour {
   //player input & movement methods
   public void updateInputX() {
     inputX = Input.GetAxis("Horizontal");
+    //update directionX: stays the same if no input
+    if (inputX < 0) directionLeft = true;
+    else if (inputX > 0) directionLeft = false;
   }
 
   public void updateInputY() {

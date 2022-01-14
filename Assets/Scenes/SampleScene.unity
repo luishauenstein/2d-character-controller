@@ -1224,6 +1224,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 9
   jumpVelocity: 20
+  dashSpeed: 18
+  dashDuration: 250
 --- !u!50 &1831816608
 Rigidbody2D:
   serializedVersion: 4
