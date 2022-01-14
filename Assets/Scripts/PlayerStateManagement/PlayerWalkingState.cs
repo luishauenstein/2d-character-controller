@@ -12,7 +12,6 @@ public class PlayerWalkingState : PlayerBaseState {
     //only update inputs that are needed
     player.updateInputX();
     player.updateInputY();
-    if (Input.GetKeyDown("left shift")) player.SwitchState(player.DashState);
   }
 
   public override void FixedUpdateState(PlayerStateManager player) {

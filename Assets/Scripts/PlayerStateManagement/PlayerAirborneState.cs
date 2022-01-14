@@ -9,8 +9,12 @@ public class PlayerAirborneState : PlayerBaseState {
     //only update inputs that are needed
     player.updateInputX();
     player.updateInputY();
-    if (Input.GetKeyDown("left shift")) player.SwitchState(player.DashState);
 
+    //hanlde dash
+    if (player.dashesAvailable > 0 && Input.GetKeyDown("left shift")) {
+      player.dashesAvailable--;
+      player.SwitchState(player.DashState);
+    }
   }
 
   public override void FixedUpdateState(PlayerStateManager player) {
