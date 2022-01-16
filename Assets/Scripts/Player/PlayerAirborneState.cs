@@ -10,8 +10,10 @@ public class PlayerAirborneState : PlayerBaseState {
     player.updateInputX();
     player.updateInputY();
 
-    //hanlde dash
-    if (player.dashesAvailable > 0 && Input.GetKeyDown("left shift")) {
+    //handle dash
+    bool dashIntent = false;
+    if (Input.GetKeyDown("left shift") || Input.GetKeyDown(KeyCode.Space)) dashIntent = true;
+    if (dashIntent && player.dashesAvailable > 0) {
       player.dashesAvailable--;
       player.SwitchState(player.DashState);
     }
