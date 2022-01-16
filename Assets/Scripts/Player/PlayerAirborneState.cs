@@ -19,7 +19,7 @@ public class PlayerAirborneState : PlayerBaseState {
 
   public override void FixedUpdateState(PlayerStateManager player) {
     player.handleWalk();
-    if (player.rb.velocity.y <= 0) player.handleJump(); //only allow second jump after first jump has reached max height;
+    player.handleJump();
   }
 
   public override void OnCollisionEnter2D(PlayerStateManager player, Collision2D collision) {

@@ -12,7 +12,7 @@ public class PlayerStateManager : MonoBehaviour {
   [System.NonSerialized] public Rigidbody2D rb;
   [System.NonSerialized] public BoxCollider2D boxCollider;
   [System.NonSerialized] public float inputX; //input left and right (e.g. for walking)
-  [System.NonSerialized] public float inputY; //input up and down (e.g. for jumping)
+  [System.NonSerialized] public bool inputY; //input up and down (e.g. for jumping)
   [System.NonSerialized] public int jumpsAvailable; //number of jumps available
   [System.NonSerialized] public int dashesAvailable; //number of dashes available
   [System.NonSerialized] public bool directionLeft = false; //shows if direction is left or right
@@ -65,7 +65,7 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   public void updateInputY() {
-    inputY = Input.GetAxisRaw("Vertical");
+    if(Input.GetKeyDown(KeyCode.W)) inputY = true;
   }
 
   public void handleWalk() {
@@ -75,10 +75,10 @@ public class PlayerStateManager : MonoBehaviour {
 
   public void handleJump() {
     //checks if "jump" has been pressed and if so, jumps
-    if (inputY > 0 && jumpsAvailable > 0) {
+    if (inputY && jumpsAvailable > 0) {
       rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); //upwards movement
-      jumpsAvailable--;
-      SwitchState(AirborneState);
+      if(!isGrounded()) jumpsAvailable--; //only decrement if player is not grounded, otherwise first jump is "free"
+      inputY = false;
     }
   }
 

@@ -4,7 +4,7 @@ public class PlayerWalkingState : PlayerBaseState {
 
   public override void EnterState(PlayerStateManager player) {
     // reset availability: set how many are available
-    player.jumpsAvailable = 2;
+    player.jumpsAvailable = 1;
     player.dashesAvailable = 1;
   }
 
