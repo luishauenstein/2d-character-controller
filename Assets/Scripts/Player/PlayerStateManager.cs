@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour {
@@ -16,6 +14,10 @@ public class PlayerStateManager : MonoBehaviour {
   [System.NonSerialized] public int jumpsAvailable; //number of jumps available
   [System.NonSerialized] public int dashesAvailable; //number of dashes available
   [System.NonSerialized] public bool directionLeft = false; //shows if direction is left or right
+
+  // coyote time variables
+  [System.NonSerialized] public float coyoteTimer; //counts how much time has passed after being airborne
+  [System.NonSerialized] public float coyoteTime = 0.1f; //defines how long coyote time should be
 
   // instantiate state objects
   PlayerBaseState currentState;
@@ -65,7 +67,7 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   public void updateInputY() {
-    if(Input.GetKeyDown(KeyCode.W)) inputY = true;
+    if (Input.GetKeyDown(KeyCode.W)) inputY = true;
   }
 
   public void handleWalk() {
@@ -77,7 +79,7 @@ public class PlayerStateManager : MonoBehaviour {
     //checks if "jump" has been pressed and if so, jumps
     if (inputY && jumpsAvailable > 0) {
       rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); //upwards movement
-      if(!isGrounded()) jumpsAvailable--; //only decrement if player is not grounded, otherwise first jump is "free"
+      if (currentState != WalkingState && coyoteTimer < 0f) jumpsAvailable--; //only decrement if player is not walking (and coyote time has ran out), otherwise first jump is "free"
       inputY = false;
     }
   }

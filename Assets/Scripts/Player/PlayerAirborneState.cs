@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class PlayerAirborneState : PlayerBaseState {
   public override void EnterState(PlayerStateManager player) {
-
+    player.coyoteTimer = player.coyoteTime;
   }
 
   public override void UpdateState(PlayerStateManager player) {
     //only update inputs that are needed
     player.updateInputX();
     player.updateInputY();
+    //count coyote time down
+    player.coyoteTimer -= Time.deltaTime;
 
     //handle dash
     bool dashIntent = false;
