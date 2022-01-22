@@ -21,6 +21,7 @@ public class PlayerStateManager : MonoBehaviour {
 
   // instantiate state objects
   PlayerBaseState currentState;
+  [System.NonSerialized] public PlayerBaseState prevState; //previousState;
   public PlayerWalkingState WalkingState = new PlayerWalkingState(); //idle & walking
   public PlayerAirborneState AirborneState = new PlayerAirborneState(); //in air (jumping or falling)
   public PlayerDashState DashState = new PlayerDashState(); //dash forward
@@ -32,6 +33,7 @@ public class PlayerStateManager : MonoBehaviour {
     boxCollider = GetComponent<BoxCollider2D>();
 
     //initial state
+    prevState = AirborneState;
     currentState = WalkingState;
     currentState.EnterState(this);
   }
@@ -54,6 +56,7 @@ public class PlayerStateManager : MonoBehaviour {
 
   // switch to another state
   public void SwitchState(PlayerBaseState state) {
+    prevState = currentState;
     currentState = state;
     state.EnterState(this);
     //Debug.Log("Switched to State: " + currentState);
@@ -82,6 +85,13 @@ public class PlayerStateManager : MonoBehaviour {
       rb.velocity = new Vector2(rb.velocity.x, jumpVelocity); //upwards movement
       if (currentState != WalkingState && coyoteTimer < 0f) jumpsAvailable--; //only decrement if player is not walking (and coyote time has ran out), otherwise first jump is "free"
       inputY = false;
+    }
+  }
+
+  public void handleDash() {
+    if (dashesAvailable > 0) {
+      dashesAvailable--;
+      SwitchState(DashState);
     }
   }
 
