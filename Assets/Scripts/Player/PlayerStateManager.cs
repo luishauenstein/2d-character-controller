@@ -56,6 +56,7 @@ public class PlayerStateManager : MonoBehaviour {
   public void SwitchState(PlayerBaseState state) {
     currentState = state;
     state.EnterState(this);
+    //Debug.Log("Switched to State: " + currentState);
   }
 
   //player input & movement methods

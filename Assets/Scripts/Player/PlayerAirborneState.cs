@@ -6,6 +6,8 @@ public class PlayerAirborneState : PlayerBaseState {
   }
 
   public override void UpdateState(PlayerStateManager player) {
+    if (player.isGrounded()) player.SwitchState(player.WalkingState); //check if player is grounded each frame
+
     //only update inputs that are needed
     player.updateInputX();
     player.updateInputY();
